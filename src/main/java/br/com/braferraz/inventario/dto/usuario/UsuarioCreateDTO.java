@@ -1,41 +1,27 @@
-package br.com.braferraz.inventario.model;
+package br.com.braferraz.inventario.dto.usuario;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class UsuarioCreateDTO {
+    @NotBlank(message = "O Nome não pode estar em branco")
     private String nome;
 
+    @Email
+    @NotBlank(message = "O E-mail não pode estar em branco")
     private String email;
 
+    @NotBlank(message = "A senha não pode estar em branco")
     private String senha;
 
     private String regional;
 
-    public Usuario(Long id, String nome, String email, String senha, String regional) {
-        this.id = id;
+    public UsuarioCreateDTO(String nome, String email, String senha, String regional) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.regional = regional;
-    }
-    public Usuario(){
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
