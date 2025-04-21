@@ -6,16 +6,6 @@ public class UsuarioDTO {
     private String email;
     private String regional;
 
-    public UsuarioDTO(Long id, String nome, String email, String regional) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.regional = regional;
-    }
-    public UsuarioDTO(){
-
-    }
-
     public Long getId() {
         return id;
     }

@@ -1,17 +1,16 @@
-package br.com.braferraz.inventario.model;
+package br.com.braferraz.inventario.dto.inventario;
 
-import jakarta.persistence.*;
+import br.com.braferraz.inventario.model.Status;
+import br.com.braferraz.inventario.model.Usuario;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Inventario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class UpdateInventarioDTO {
     private String nome;
 
     private String codCliente;
@@ -20,9 +19,6 @@ public class Inventario {
 
     private Status status;
 
-    @ManyToOne
-    private Usuario criadoPor;
-
     @ManyToMany
     @JoinTable(
             name = "inventario_usuarios",
@@ -30,27 +26,6 @@ public class Inventario {
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private List<Usuario> inventariadores = new ArrayList<>();
-
-    public Inventario(Long id, String nome, String codCliente, LocalDate dataInicio, Status status, Usuario criadoPor, List<Usuario> inventariadores) {
-        this.id = id;
-        this.nome = nome;
-        this.codCliente = codCliente;
-        this.dataInicio = dataInicio;
-        this.status = status;
-        this.criadoPor = criadoPor;
-        this.inventariadores = inventariadores;
-    }
-    public Inventario(){
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -82,14 +57,6 @@ public class Inventario {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public Usuario getCriadoPor() {
-        return criadoPor;
-    }
-
-    public void setCriadoPor(Usuario criadoPor) {
-        this.criadoPor = criadoPor;
     }
 
     public List<Usuario> getInventariadores() {

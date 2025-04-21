@@ -17,13 +17,6 @@ public class UsuarioCreateDTO {
 
     private String regional;
 
-    public UsuarioCreateDTO(String nome, String email, String senha, String regional) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.regional = regional;
-    }
-
     public String getNome() {
         return nome;
     }

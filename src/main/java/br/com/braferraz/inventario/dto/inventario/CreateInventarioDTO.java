@@ -1,28 +1,37 @@
-package br.com.braferraz.inventario.model;
+package br.com.braferraz.inventario.dto.inventario;
 
-import jakarta.persistence.*;
+import br.com.braferraz.inventario.model.Status;
+import br.com.braferraz.inventario.model.Usuario;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Inventario {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class CreateInventarioDTO {
+    @NotBlank(message = "O Nome não pode estar em branco")
     private String nome;
 
+    @NotBlank(message = "O Codigo do cliente não pode estar em branco")
     private String codCliente;
 
+    @NotNull(message = "A data de início não pode ser nula")
     private LocalDate dataInicio;
 
+    @NotNull(message = "O status não pode ser nulo")
     private Status status;
 
+    @NotNull(message = "Usuário não pode ser nulo")
     @ManyToOne
     private Usuario criadoPor;
 
+    @NotEmpty(message = "A lista de inventariadores não pode estar vazia")
     @ManyToMany
     @JoinTable(
             name = "inventario_usuarios",
@@ -30,27 +39,6 @@ public class Inventario {
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private List<Usuario> inventariadores = new ArrayList<>();
-
-    public Inventario(Long id, String nome, String codCliente, LocalDate dataInicio, Status status, Usuario criadoPor, List<Usuario> inventariadores) {
-        this.id = id;
-        this.nome = nome;
-        this.codCliente = codCliente;
-        this.dataInicio = dataInicio;
-        this.status = status;
-        this.criadoPor = criadoPor;
-        this.inventariadores = inventariadores;
-    }
-    public Inventario(){
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
