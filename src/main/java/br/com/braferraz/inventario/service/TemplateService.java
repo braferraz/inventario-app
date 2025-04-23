@@ -4,6 +4,7 @@ import br.com.braferraz.inventario.dto.formulario.template.CreateTemplateDTO;
 import br.com.braferraz.inventario.dto.formulario.template.TemplateDTO;
 import br.com.braferraz.inventario.dto.formulario.template.TemplateMapper;
 import br.com.braferraz.inventario.model.Campo;
+import br.com.braferraz.inventario.model.Inventario;
 import br.com.braferraz.inventario.model.Template;
 import br.com.braferraz.inventario.repository.CampoRepository;
 import br.com.braferraz.inventario.repository.TemplateRepository;
@@ -28,27 +29,19 @@ public class TemplateService {
         this.campoRepository = campoRepository;
     }
 
-    public TemplateDTO criarComCamposExistentes(CreateTemplateDTO dto) {
-        // 1. Criar o novo Template
+    public TemplateDTO criar(CreateTemplateDTO dto) {
+//        Template template = templateFormularioMapper.toEntity(dto);
+//        Template salvo = templateFormularioRepository.save(template);
+//        return templateFormularioMapper.toDTO(salvo);
+
         Template template = new Template();
         template.setNome(dto.getNome());
 
-        // 2. Buscar os Campos existentes
-        List<Campo> campos = campoRepository.findAllById(dto.getCampos());
-
-        // 3. Associar os campos ao novo Template
-        for (Campo campo : campos) {
-            campo.setTemplate(template); // Vincula o campo ao template
-        }
-
-        // 4. Setar os campos no Template
+        // Carrega os Campos existentes pelos IDs recebidos
+        List<Campo> campos = campoRepository.findAllById(dto.getCampoIds());
         template.setCampos(campos);
 
-        // 5. Salvar o template (cascateia para atualizar os campos vinculados)
-        Template salvo = templateRepository.save(template);
-
-        // 6. Retornar o DTO mapeado
-        return templateFormularioMapper.toDTO(salvo);
+        return templateFormularioMapper.toDTO(templateFormularioRepository.save(template));
     }
 
     public List<TemplateDTO> listarTodos(){

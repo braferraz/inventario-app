@@ -15,10 +15,15 @@ public class Template {
     @Column(nullable = false)
     private String nome;
 
-    @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Long> campos = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "template_campo",
+            joinColumns = @JoinColumn(name = "template_id"),
+            inverseJoinColumns = @JoinColumn(name = "campo_id")
+    )
+    private List<Campo> campos = new ArrayList<>();
 
-    public Template(Long id, String nome, List<Long> campos) {
+    public Template(Long id, String nome, List<Campo> campos) {
         this.id = id;
         this.nome = nome;
         this.campos = campos;
@@ -42,11 +47,11 @@ public class Template {
         this.nome = nome;
     }
 
-    public List<Long> getCampos() {
+    public List<Campo> getCampos() {
         return campos;
     }
 
-    public void setCampos(List<Long> campos) {
+    public void setCampos(List<Campo> campos) {
         this.campos = campos;
     }
 

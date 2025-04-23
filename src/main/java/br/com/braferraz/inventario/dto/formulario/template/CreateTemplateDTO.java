@@ -10,15 +10,11 @@ public class CreateTemplateDTO {
     private String nome;
 
     @NotEmpty
-    private List<Long> campos;
+    private List<Long> campoIds;
 
-    public CreateTemplateDTO(String nome, List<Long> campos) {
+    public CreateTemplateDTO(String nome, List<Long> campoIds) {
         this.nome = nome;
-        this.campos = campos;
-    }
-
-    public CreateTemplateDTO(){
-
+        this.campoIds = campoIds;
     }
 
     public String getNome() {
@@ -29,11 +25,11 @@ public class CreateTemplateDTO {
         this.nome = nome;
     }
 
-    public List<Long> getCampos() {
-        return campos;
+    public List<Long> getCampoIds() {
+        return campoIds;
     }
 
-    public void setCampos(List<Long> campos) {
-        this.campos = campos;
+    public void setCampoIds(List<Long> campoIds) {
+        this.campoIds = campoIds;
     }
 }
