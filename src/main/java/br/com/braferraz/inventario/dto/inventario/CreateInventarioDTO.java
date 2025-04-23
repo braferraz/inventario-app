@@ -1,6 +1,7 @@
 package br.com.braferraz.inventario.dto.inventario;
 
 import br.com.braferraz.inventario.model.Status;
+import br.com.braferraz.inventario.model.Template;
 import br.com.braferraz.inventario.model.Usuario;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -39,6 +40,9 @@ public class CreateInventarioDTO {
             inverseJoinColumns = @JoinColumn(name = "usuario_id")
     )
     private List<Usuario> inventariadores = new ArrayList<>();
+
+    @NotEmpty(message = "Informe um template para o formulário")
+    private Template templateFormulario;
 
     public String getNome() {
         return nome;
@@ -86,5 +90,13 @@ public class CreateInventarioDTO {
 
     public void setInventariadores(List<Usuario> inventariadores) {
         this.inventariadores = inventariadores;
+    }
+
+    public Template getTemplateFormulario() {
+        return templateFormulario;
+    }
+
+    public void setTemplateFormulario(Template templateFormulario) {
+        this.templateFormulario = templateFormulario;
     }
 }

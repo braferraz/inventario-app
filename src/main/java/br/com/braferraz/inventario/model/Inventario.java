@@ -31,7 +31,10 @@ public class Inventario {
     )
     private List<Usuario> inventariadores = new ArrayList<>();
 
-    public Inventario(Long id, String nome, String codCliente, LocalDate dataInicio, Status status, Usuario criadoPor, List<Usuario> inventariadores) {
+    @ManyToOne
+    private Template templateFormulario;
+
+    public Inventario(Long id, String nome, String codCliente, LocalDate dataInicio, Status status, Usuario criadoPor, List<Usuario> inventariadores, Template templateFormulario) {
         this.id = id;
         this.nome = nome;
         this.codCliente = codCliente;
@@ -39,7 +42,9 @@ public class Inventario {
         this.status = status;
         this.criadoPor = criadoPor;
         this.inventariadores = inventariadores;
+        this.templateFormulario = templateFormulario;
     }
+
     public Inventario(){
 
     }
@@ -98,5 +103,13 @@ public class Inventario {
 
     public void setInventariadores(List<Usuario> inventariadores) {
         this.inventariadores = inventariadores;
+    }
+
+    public Template getTemplateFormulario() {
+        return templateFormulario;
+    }
+
+    public void setTemplateFormulario(Template templateFormulario) {
+        this.templateFormulario = templateFormulario;
     }
 }
